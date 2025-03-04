@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZenTask - Authentication</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container auth-container">
+        <header>
+            <h1>ZEN/TASK</h1>
+        </header>
+
+        <div class="auth-forms">
+            <!-- Login Form -->
+            <div class="auth-form" id="login-form">
+                <h2>Login</h2>
+                <form onsubmit="return auth.login(event)">
+                    <input type="email" id="login-email" placeholder="Email" required>
+                    <input type="password" id="login-password" placeholder="Password" required>
+                    <button type="submit" class="primary-btn">Login</button>
+                </form>
+                <p class="auth-switch">Don't have an account? <a href="#" onclick="auth.toggleForms()">Register</a></p>
+            </div>
+
+            <!-- Register Form -->
+            <div class="auth-form hidden" id="register-form">
+                <h2>Register</h2>
+                <form onsubmit="return auth.register(event)">
+                    <input type="text" id="register-name" placeholder="Full Name" required>
+                    <input type="email" id="register-email" placeholder="Email" required>
+                    <input type="password" id="register-password" placeholder="Password" required>
+                    <input type="password" id="register-confirm-password" placeholder="Confirm Password" required>
+                    <button type="submit" class="primary-btn">Register</button>
+                </form>
+                <p class="auth-switch">Already have an account? <a href="#" onclick="auth.toggleForms()">Login</a></p>
+            </div>
+        </div>
+    </div>
+    <script src="auth.js"></script>
+</body>
+</html>

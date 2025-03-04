@@ -8,7 +8,30 @@ class TaskManager {
 
     init() {
         // Initialize event listeners
-        document.getElementById('add-task-form').addEventListener('submit', (e) => this.addTask(e));
+        const addTaskBtn = document.getElementById('add-task-btn');
+        const modal = document.getElementById('add-task-modal');
+        const closeModal = document.querySelector('.close-modal');
+        const addTaskForm = document.getElementById('add-task-form');
+
+        addTaskBtn.addEventListener('click', () => {
+            modal.style.display = 'block';
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        addTaskForm.addEventListener('submit', (e) => {
+            this.addTask(e);
+            modal.style.display = 'none';
+        });
+
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', () => this.filterTasks(btn.dataset.filter));
         });

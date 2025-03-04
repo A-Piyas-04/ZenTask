@@ -18,18 +18,26 @@
             </div>
         </header>
 
-        <div class="add-task-container">
-            <form id="add-task-form">
-                <input type="text" id="task-input" placeholder="Add a new task..." required>
-                <textarea id="task-description" placeholder="Add task description..." rows="3" required></textarea>
-                <input type="date" id="due-date" required>
-                <select id="priority" required>
-                    <option value="low">Low Priority</option>
-                    <option value="medium">Medium Priority</option>
-                    <option value="high">High Priority</option>
-                </select>
-                <button type="submit">Add Task</button>
-            </form>
+        <div class="action-buttons">
+            <button id="add-task-btn" class="primary-btn">Add Task</button>
+        </div>
+
+        <div id="add-task-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Add New Task</h2>
+                <form id="add-task-form">
+                    <input type="text" id="task-input" placeholder="Add a new task..." required>
+                    <textarea id="task-description" placeholder="Add task description..." rows="3" required></textarea>
+                    <input type="date" id="due-date" required>
+                    <select id="priority" required>
+                        <option value="low">Low Priority</option>
+                        <option value="medium">Medium Priority</option>
+                        <option value="high">High Priority</option>
+                    </select>
+                    <button type="submit">Add Task</button>
+                </form>
+            </div>
         </div>
 
         <div class="tasks-container">
