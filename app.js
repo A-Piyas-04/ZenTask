@@ -1,13 +1,25 @@
 // Task Manager Class
 class TaskManager {
     constructor() {
-        this.tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        if (!auth.currentUser) {
+            window.location.href = 'auth.html';
+            return;
+        }
+        this.tasks = JSON.parse(localStorage.getItem(`tasks_${auth.currentUser.id}`)) || [];
         this.currentFilter = 'all';
         this.init();
     }
 
     init() {
-        // Initialize event listeners
+        // Add logout button
+        const header = document.querySelector('header');
+        const logoutBtn = document.createElement('button');
+        logoutBtn.className = 'filter-btn';
+        logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i> Logout';
+        logoutBtn.onclick = () => auth.logout();
+        header.appendChild(logoutBtn);
+
+        // Initialize other event listeners
         const addTaskBtn = document.getElementById('add-task-btn');
         const modal = document.getElementById('add-task-modal');
         const closeModal = document.querySelector('.close-modal');
@@ -112,7 +124,7 @@ class TaskManager {
     }
 
     saveTasks() {
-        localStorage.setItem('tasks', JSON.stringify(this.tasks));
+        localStorage.setItem(`tasks_${auth.currentUser.id}`, JSON.stringify(this.tasks));
     }
 
     renderTasks() {
