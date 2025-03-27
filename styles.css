@@ -7,17 +7,18 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    background: linear-gradient(135deg, #1a2980 0%, #26d0ce 100%);
-    color: #333;
+    background: linear-gradient(135deg, #0a0a1f 0%, #1a1a3a 100%);
+    color: #e0e0ff;
     min-height: 100vh;
     margin: 0;
 }
 
 .top-nav {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(20, 20, 40, 0.7);
     backdrop-filter: blur(10px);
     padding: 1rem 0;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(79, 172, 254, 0.2);
+    border-bottom: 1px solid rgba(79, 172, 254, 0.2);
 }
 
 .nav-container {
@@ -32,10 +33,16 @@ body {
 .nav-brand {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #fff;
+    color: #4facfe;
     text-transform: uppercase;
     letter-spacing: 2px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 0 10px rgba(79, 172, 254, 0.5);
+    transition: all 0.3s ease;
+}
+
+.nav-brand:hover {
+    color: #00f2fe;
+    text-shadow: 0 0 15px rgba(0, 242, 254, 0.7);
 }
 
 .container {
@@ -114,16 +121,21 @@ h1::after {
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 5px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
     color: #fff;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px rgba(79, 172, 254, 0.2);
+    position: relative;
+    overflow: hidden;
+    margin: 0 0.5rem;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 .filter-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 0 20px rgba(79, 172, 254, 0.4);
+    background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
 }
 
 .filter-btn.active {
@@ -143,15 +155,16 @@ h1::after {
 }
 
 .modal-content {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(20, 20, 40, 0.8);
     padding: 2rem;
     border-radius: 15px;
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
-    backdrop-filter: blur(4px);
+    box-shadow: 0 8px 32px rgba(79, 172, 254, 0.2);
+    backdrop-filter: blur(10px);
     max-width: 600px;
     width: 90%;
     margin: 50px auto;
     position: relative;
+    border: 1px solid rgba(79, 172, 254, 0.2);
 }
 
 .close-modal {
@@ -160,7 +173,15 @@ h1::after {
     top: 10px;
     font-size: 24px;
     cursor: pointer;
-    color: #666;
+    color: #4facfe;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 10px rgba(79, 172, 254, 0.3);
+}
+
+.close-modal:hover {
+    color: #00f2fe;
+    text-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
+    transform: rotate(90deg);
 }
 
 .action-buttons {
@@ -180,7 +201,26 @@ h1::after {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 20px rgba(79, 172, 254, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.primary-btn::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(45deg);
+    pointer-events: none;
+    transition: transform 0.6s ease;
+}
+
+.primary-btn:hover::before {
+    transform: rotate(45deg) translate(50%, 50%);
 }
 
 .primary-btn:hover {
@@ -201,11 +241,12 @@ textarea {
 
 input, select, textarea {
     padding: 0.8rem;
-    border: 1px solid rgba(102, 126, 234, 0.3);
+    border: 1px solid rgba(79, 172, 254, 0.3);
     border-radius: 8px;
     font-size: 1rem;
     transition: all 0.3s ease;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(30, 30, 60, 0.6);
+    color: #e0e0ff;
 }
 
 input:focus, select:focus, textarea:focus {
@@ -233,10 +274,12 @@ button[type="submit"]:hover {
 }
 
 .tasks-container {
-    background-color: #fff;
+    background: rgba(20, 20, 40, 0.7);
     border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px rgba(15, 15, 30, 0.3);
     padding: 1rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(79, 172, 254, 0.1);
 }
 
 .task-item {
@@ -245,7 +288,16 @@ button[type="submit"]:hover {
     align-items: center;
     gap: 1rem;
     padding: 1rem;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid rgba(79, 172, 254, 0.2);
+    background: rgba(30, 30, 60, 0.4);
+    margin: 0.5rem 0;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.task-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(79, 172, 254, 0.2);
 }
 
 .task-item:last-child {
@@ -260,11 +312,13 @@ button[type="submit"]:hover {
 
 .task-title {
     font-weight: 600;
+    color: #4facfe;
+    text-shadow: 0 0 10px rgba(79, 172, 254, 0.3);
 }
 
 .task-details {
     font-size: 0.9rem;
-    color: #666;
+    color: #8f8fb7;
 }
 
 .task-actions {
@@ -277,16 +331,28 @@ button[type="submit"]:hover {
     border: none;
     cursor: pointer;
     font-size: 1.1rem;
-    color: #666;
-    transition: color 0.3s ease;
+    color: #4facfe;
+    transition: all 0.3s ease;
+    padding: 0.5rem;
+    border-radius: 50%;
+    position: relative;
+    text-shadow: 0 0 10px rgba(79, 172, 254, 0.3);
+}
+
+.task-actions button:hover {
+    background: rgba(79, 172, 254, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(79, 172, 254, 0.2);
 }
 
 .task-actions .edit-btn:hover {
-    color: #3498db;
+    color: #00f2fe;
+    text-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
 }
 
 .task-actions .delete-btn:hover {
-    color: #e74c3c;
+    color: #fe4a4a;
+    text-shadow: 0 0 15px rgba(254, 74, 74, 0.5);
 }
 
 .auth-container {
@@ -295,11 +361,12 @@ button[type="submit"]:hover {
 }
 
 .auth-form {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(20, 20, 40, 0.8);
     padding: 2rem;
     border-radius: 15px;
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
-    backdrop-filter: blur(4px);
+    box-shadow: 0 8px 32px rgba(79, 172, 254, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(79, 172, 254, 0.2);
 }
 
 .auth-form h2 {
@@ -346,18 +413,21 @@ button[type="submit"]:hover {
 }
 
 .priority-low {
-    background-color: #2ecc71;
+    background: linear-gradient(135deg, #2ecc71 0%, #1abc9c 100%);
     color: #fff;
+    box-shadow: 0 0 10px rgba(46, 204, 113, 0.3);
 }
 
 .priority-medium {
-    background-color: #f1c40f;
+    background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
     color: #fff;
+    box-shadow: 0 0 10px rgba(241, 196, 15, 0.3);
 }
 
 .priority-high {
-    background-color: #e74c3c;
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
     color: #fff;
+    box-shadow: 0 0 10px rgba(231, 76, 60, 0.3);
 }
 
 .completed {
@@ -460,11 +530,12 @@ button[type="submit"]:hover {
 }
 
 .auth-form {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(20, 20, 40, 0.8);
     padding: 2rem;
     border-radius: 15px;
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
-    backdrop-filter: blur(4px);
+    box-shadow: 0 8px 32px rgba(79, 172, 254, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(79, 172, 254, 0.2);
 }
 
 .auth-form h2 {
@@ -511,18 +582,21 @@ button[type="submit"]:hover {
 }
 
 .priority-low {
-    background-color: #2ecc71;
+    background: linear-gradient(135deg, #2ecc71 0%, #1abc9c 100%);
     color: #fff;
+    box-shadow: 0 0 10px rgba(46, 204, 113, 0.3);
 }
 
 .priority-medium {
-    background-color: #f1c40f;
+    background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
     color: #fff;
+    box-shadow: 0 0 10px rgba(241, 196, 15, 0.3);
 }
 
 .priority-high {
-    background-color: #e74c3c;
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
     color: #fff;
+    box-shadow: 0 0 10px rgba(231, 76, 60, 0.3);
 }
 
 .completed {
