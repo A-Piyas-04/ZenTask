@@ -21,10 +21,16 @@ class Auth {
 
     async register(event) {
         event.preventDefault();
-        const name = document.getElementById('register-name').value;
-        const email = document.getElementById('register-email').value;
+        const name = document.getElementById('register-name').value.trim();
+        const email = document.getElementById('register-email').value.trim();
         const password = document.getElementById('register-password').value;
         const confirmPassword = document.getElementById('register-confirm-password').value;
+
+        // Validate form
+        if (!name || !email || !password || !confirmPassword) {
+            alert('Please fill in all fields');
+            return false;
+        }
 
         if (password !== confirmPassword) {
             alert('Passwords do not match!');
@@ -32,7 +38,7 @@ class Auth {
         }
 
         try {
-            const response = await fetch('/register', {
+            const response = await fetch('/api/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -44,14 +50,14 @@ class Auth {
                 })
             });
 
-            if (!response.ok) {
-                const data = await response.json();
-                alert(data.message || 'Registration failed!');
-                return false;
-            }
+            const data = await response.json();
 
-            alert('Registration successful! Please login.');
-            this.toggleForms();
+            if (data.success) {
+                alert('Registration successful! Please login.');
+                this.toggleForms();
+            } else {
+                alert(data.message || 'Registration failed');
+            }
         } catch (error) {
             console.error('Registration error:', error);
             alert('Registration failed! Please try again.');
@@ -61,11 +67,17 @@ class Auth {
 
     async login(event) {
         event.preventDefault();
-        const email = document.getElementById('login-email').value;
+        const email = document.getElementById('login-email').value.trim();
         const password = document.getElementById('login-password').value;
 
+        // Validate form
+        if (!email || !password) {
+            alert('Please fill in all fields');
+            return false;
+        }
+
         try {
-            const response = await fetch('/login', {
+            const response = await fetch('/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -76,16 +88,16 @@ class Auth {
                 })
             });
 
-            if (!response.ok) {
-                const data = await response.json();
-                alert(data.message || 'Invalid email or password!');
-                return false;
-            }
+            const data = await response.json();
 
-            const user = await response.json();
-            this.currentUser = user;
-            localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
-            window.location.href = 'index.html';
+            if (data.success) {
+                // Store user data in localStorage
+                localStorage.setItem('currentUser', JSON.stringify(data.user));
+                this.currentUser = data.user;
+                window.location.href = 'index.html';
+            } else {
+                alert(data.message || 'Invalid credentials');
+            }
         } catch (error) {
             console.error('Login error:', error);
             alert('Login failed! Please try again.');
