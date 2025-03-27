@@ -1,6 +1,5 @@
 class Auth {
     constructor() {
-        this.users = JSON.parse(localStorage.getItem('users')) || [];
         this.currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
         this.checkAuth();
     }
@@ -20,7 +19,7 @@ class Auth {
         registerForm.classList.toggle('hidden');
     }
 
-    register(event) {
+    async register(event) {
         event.preventDefault();
         const name = document.getElementById('register-name').value;
         const email = document.getElementById('register-email').value;
@@ -32,42 +31,64 @@ class Auth {
             return false;
         }
 
-        if (this.users.some(user => user.email === email)) {
-            alert('Email already registered!');
-            return false;
+        try {
+            const response = await fetch('/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    password: this.hashPassword(password)
+                })
+            });
+
+            if (!response.ok) {
+                const data = await response.json();
+                alert(data.message || 'Registration failed!');
+                return false;
+            }
+
+            alert('Registration successful! Please login.');
+            this.toggleForms();
+        } catch (error) {
+            console.error('Registration error:', error);
+            alert('Registration failed! Please try again.');
         }
-
-        const newUser = {
-            id: Date.now(),
-            name,
-            email,
-            password: this.hashPassword(password)
-        };
-
-        this.users.push(newUser);
-        localStorage.setItem('users', JSON.stringify(this.users));
-        alert('Registration successful! Please login.');
-        this.toggleForms();
         return false;
     }
 
-    login(event) {
+    async login(event) {
         event.preventDefault();
         const email = document.getElementById('login-email').value;
         const password = document.getElementById('login-password').value;
 
-        const user = this.users.find(u => 
-            u.email === email && 
-            u.password === this.hashPassword(password)
-        );
+        try {
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email,
+                    password: this.hashPassword(password)
+                })
+            });
 
-        if (user) {
-            const { password, ...userWithoutPassword } = user;
-            this.currentUser = userWithoutPassword;
+            if (!response.ok) {
+                const data = await response.json();
+                alert(data.message || 'Invalid email or password!');
+                return false;
+            }
+
+            const user = await response.json();
+            this.currentUser = user;
             localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
             window.location.href = 'index.html';
-        } else {
-            alert('Invalid email or password!');
+        } catch (error) {
+            console.error('Login error:', error);
+            alert('Login failed! Please try again.');
         }
         return false;
     }
