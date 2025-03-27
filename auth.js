@@ -5,18 +5,14 @@ class Auth {
     }
 
     checkAuth() {
-        if (!this.currentUser && window.location.pathname !== '/auth.html') {
-            window.location.href = 'auth.html';
-        } else if (this.currentUser && window.location.pathname === '/auth.html') {
+        const authPages = ['/login.html', '/register.html'];
+        const currentPath = window.location.pathname;
+        
+        if (!this.currentUser && !authPages.includes(currentPath)) {
+            window.location.href = 'login.html';
+        } else if (this.currentUser && authPages.includes(currentPath)) {
             window.location.href = 'index.html';
         }
-    }
-
-    toggleForms() {
-        const loginForm = document.getElementById('login-form');
-        const registerForm = document.getElementById('register-form');
-        loginForm.classList.toggle('hidden');
-        registerForm.classList.toggle('hidden');
     }
 
     async register(event) {
@@ -54,7 +50,7 @@ class Auth {
 
             if (data.success) {
                 alert('Registration successful! Please login.');
-                this.toggleForms();
+                window.location.href = 'login.html';
             } else {
                 alert(data.message || 'Registration failed');
             }
@@ -108,7 +104,7 @@ class Auth {
     logout() {
         this.currentUser = null;
         localStorage.removeItem('currentUser');
-        window.location.href = 'auth.html';
+        window.location.href = 'login.html';
     }
 
     hashPassword(password) {
