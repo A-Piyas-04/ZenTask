@@ -34,7 +34,7 @@ class Auth {
         }
 
         try {
-            const response = await fetch('/api/register', {
+            const response = await fetch('/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -48,7 +48,7 @@ class Auth {
 
             const data = await response.json();
 
-            if (data.success) {
+            if (data) {
                 alert('Registration successful! Please login.');
                 window.location.href = 'login.html';
             } else {
@@ -73,7 +73,7 @@ class Auth {
         }
 
         try {
-            const response = await fetch('/api/login', {
+            const response = await fetch('/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -86,7 +86,7 @@ class Auth {
 
             const data = await response.json();
 
-            if (data.success) {
+            if (data) {
                 // Store user data in localStorage
                 localStorage.setItem('currentUser', JSON.stringify(data.user));
                 this.currentUser = data.user;
