@@ -7,7 +7,22 @@ class TaskManager {
         }
         this.tasks = JSON.parse(localStorage.getItem(`tasks_${auth.currentUser.id}`)) || [];
         this.currentFilter = 'all';
+        this.updateNavigation();
         this.init();
+    }
+
+    updateNavigation() {
+        const authButtons = document.getElementById('auth-buttons');
+        if (auth.currentUser) {
+            authButtons.innerHTML = `
+                <button class="auth-btn" onclick="auth.logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            `;
+        } else {
+            authButtons.innerHTML = `
+                <a href="login.html" class="auth-btn">Login</a>
+                <a href="register.html" class="auth-btn">Register</a>
+            `;
+        }
     }
 
     init() {
